@@ -1,43 +1,22 @@
-/* eslint-disable import/no-named-as-default */
-import { NavLink, Route, Switch } from "react-router-dom";
+import React from 'react';
+import YeomanImage from './YeomanImage';
+import './app.css';
 
-import AboutPage from "./AboutPage";
-import FuelSavingsPage from "./containers/FuelSavingsPage";
-import HomePage from "./HomePage";
-import NotFoundPage from "./NotFoundPage";
-import PropTypes from "prop-types";
-import React from "react";
-import { hot } from "react-hot-loader";
+class AppComponent extends React.Component {
 
-// This is a class-based component because the current
-// version of hot reloading won't hot reload a stateless
-// component at the top-level.
-
-class App extends React.Component {
   render() {
-    const activeStyle = { color: 'blue' };
     return (
-      <div>
-        <div>
-          <NavLink exact to="/" activeStyle={activeStyle}>Home</NavLink>
-          {' | '}
-          <NavLink to="/fuel-savings" activeStyle={activeStyle}>Demo App</NavLink>
-          {' | '}
-          <NavLink to="/about" activeStyle={activeStyle}>About</NavLink>
+      <div className="index">
+        <YeomanImage />
+        <div className="notice">
+          Please edit <code>src/components/App.js</code> to get started!
         </div>
-        <Switch>
-          <Route exact path="/" component={HomePage} />
-          <Route path="/fuel-savings" component={FuelSavingsPage} />
-          <Route path="/about" component={AboutPage} />
-          <Route component={NotFoundPage} />
-        </Switch>
       </div>
     );
   }
 }
 
-App.propTypes = {
-  children: PropTypes.element
+AppComponent.defaultProps = {
 };
 
-export default hot(module)(App);
+export default AppComponent;

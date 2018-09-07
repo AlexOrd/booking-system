@@ -1,6 +1,6 @@
 # Logs
 logs
-*.log*
+*.log
 
 # Runtime data
 pids
@@ -26,15 +26,11 @@ build/Release
 # https://www.npmjs.org/doc/misc/npm-faq.html#should-i-check-my-node_modules-folder-into-git
 node_modules
 
-#dist folder
-dist
+# Bower
+bower_components/
 
-# IDEA/Webstorm project files
-.idea
-*.iml
+# Dist folder
+dist/
 
-#VSCode metadata
-.vscode
-
-# Mac files
-.DS_Store
+# IDE/Editor data
+.idea/
