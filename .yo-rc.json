@@ -1,9 +1,0 @@
-{
-  "generator-react-webpack": {
-    "appName": "booking-system",
-    "style": "scss",
-    "cssmodules": false,
-    "postcss": false,
-    "generatedWithVersion": 4
-  }
-}
