@@ -1,13 +1,12 @@
 {
-  "name": "react-slingshot",
-  "version": "7.0.1",
-  "description": "Starter kit for creating apps with React and Redux",
+  "name": "booking-system",
+  "version": "0.1.0",
+  "description": "Meeting rooms booking system.",
   "engines": {
     "npm": ">=3"
   },
   "scripts": {
     "preinstall": "node tools/nodeVersionCheck.js",
-    "setup": "node tools/setup/setupMessage.js && npm install && node tools/setup/setup.js",
     "remove-demo": "babel-node tools/removeDemo.js",
     "start-message": "babel-node tools/startMessage.js",
     "prestart": "npm run start-message",
@@ -28,16 +27,23 @@
     "open:cover": "npm run test:cover && opn ./coverage/lcov-report/index.html",
     "analyze-bundle": "babel-node ./tools/analyzeBundle.js"
   },
-  "author": "Cory House",
+  "author": "ElifTech",
   "license": "MIT",
   "dependencies": {
     "@material-ui/core": "3.0.3",
+    "@material-ui/icons": "3.0.1",
     "connected-react-router": "4.4.1",
+    "date-fns": "1.29.0",
+    "material-ui-pickers": "1.0.0-rc.14",
+    "material-ui-time-picker": "1.0.0",
+    "moment": "2.22.2",
     "object-assign": "4.1.1",
     "react": "16.4.2",
     "react-dom": "16.4.2",
+    "react-live-clock": "2.0.3",
     "react-redux": "5.0.7",
     "react-router-dom": "4.3.1",
+    "react-timeless": "0.3.1",
     "redux": "4.0.0",
     "redux-thunk": "2.3.0"
   },
@@ -99,24 +105,10 @@
     "webpack-dev-middleware": "3.2.0",
     "webpack-hot-middleware": "2.22.3"
   },
-  "keywords": [
-    "react",
-    "reactjs",
-    "react-router",
-    "hot",
-    "reload",
-    "hmr",
-    "live",
-    "edit",
-    "webpack",
-    "redux",
-    "flux",
-    "boilerplate",
-    "starter"
-  ],
+  "keywords": [],
   "repository": {
     "type": "git",
-    "url": "https://github.com/coryhouse/react-slingshot"
+    "url": ""
   },
   "jest": {
     "moduleNameMapper": {
