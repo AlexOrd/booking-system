@@ -2,9 +2,8 @@ import React from 'react';
 import PropTypes from "prop-types";
 
 // Components
-import InfoContainer from './InfoContainer';
-import ClockContainer from './ClockContainer';
-import ListContainer from './ListContainer';
+import EventContainer from './EventContainer';
+import EventListContainer from './EventListContainer';
 
 // Material
 import Paper from '@material-ui/core/Paper';
@@ -23,22 +22,21 @@ const styles = {
     }
 };
 
-const HomePage = (props) => {
+const NewEvent = (props) => {
   const { classes } = props;
 
   return (
     <Paper className={classes.root} elevation={1}>
-      <InfoContainer />
+      <EventContainer />
       <div>
-        <ClockContainer />
-        <ListContainer />
+        <EventListContainer />
       </div>
     </Paper>
   );
 };
 
-HomePage.propTypes = {
+NewEvent.propTypes = {
   classes: PropTypes.object
 };
 
-export default withStyles(styles)(HomePage);
+export default withStyles(styles)(NewEvent);
