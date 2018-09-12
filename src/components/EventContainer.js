@@ -1,6 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import { Link } from 'react-router-dom';
+import moment from 'moment';
 
 // Material
 import { withStyles } from '@material-ui/core/styles';
@@ -12,10 +13,13 @@ import CardMedia from '@material-ui/core/CardMedia';
 import Button from '@material-ui/core/Button';
 import TextField from '@material-ui/core/TextField';
 import Typography from '@material-ui/core/Typography';
+import FormControl from '@material-ui/core/FormControl';
+import InputLabel from '@material-ui/core/InputLabel';
+import FormGroup from '@material-ui/core/FormGroup';
 
 import TimeInput from 'material-ui-time-picker'
 
-const styles = {
+const styles ={
   card: {
     width: 650,
   },
@@ -26,23 +30,43 @@ const styles = {
   },
   content: {
     height: '380px',
-    width: '100%',
+    width: '80%',
   },
   form: {
     display: 'flex',
     justifyContent: 'center',
     flexWrap: 'wrap',
     alignItems: 'center',
-    flexFlow: 'column'
+    flexFlow: 'column',
+    width: '90%'
   },
   textField: {
     marginLeft: '16px',
     marginRight: '16px',
-    width: 200,
+    fontSize: '2em'
   },
   actions: {
     display: 'flex',
     justifyContent: 'space-between'
+  },
+  formInput: {
+    fontSize: '2em'
+  },
+  form2Input: {
+    fontSize: '2em',
+    width: '73%'
+  },
+  formLabel: {
+    fontSize: '1em',
+    color: '#1958A8'
+  },
+  form2Label: {
+    fontSize: '2em',
+    color: '#1958A8'
+  },
+  formGroup: {
+    flexWrap:'nowrap',
+    marginLeft: '90px'
   }
 };
 
@@ -75,7 +99,7 @@ class EventContainer extends React.Component {
             title="Room images"
           />
           <CardContent className={classes.content}>
-            <Typography gutterBottom variant="headline" component="h2">
+            <Typography gutterBottom variant="headline" component="h1">
               Meeting Room #1
             </Typography>
             <form className={classes.form} noValidate autoComplete="off">
@@ -86,11 +110,58 @@ class EventContainer extends React.Component {
                 value={this.state.name}
                 onChange={this.handleChange('name')}
                 margin="normal"
+                InputProps={{
+                  classes: {
+                    input: classes.formInput,
+                  },
+                }}
+                InputLabelProps={{
+                  shrink: true,
+                  className: classes.formLabel,
+                }}
+                fullWidth
               />
-              <TimeInput
-                mode='12h'
-                onChange={(time) => this.handleDateChange(time)}
+              <TextField
+                id='date'
+                type='date'
+                label="Meeting date"
+                defaultValue={moment().format('YYYY-MM-DD')}
+                className={classes.textField}
+                onChange={(date) => this.handleChange(date)}
+                margin="normal"
+                InputProps={{
+                  classes: {
+                    input: classes.formInput,
+                  },
+                }}
+                InputLabelProps={{
+                  shrink: true,
+                  className: classes.formLabel,
+                }}
+                fullWidth
               />
+              <FormGroup row className={classes.formGroup}>
+                <FormControl>
+                  <InputLabel htmlFor="from-time" className={classes.form2Label} >From</InputLabel>
+                  <TimeInput
+                    id='from-time'
+                    mode='12h'
+                    className={classes.form2Input}
+                    onChange={(fromTime) => this.handleChange(fromTime)}
+                  />
+                </FormControl>
+                <FormControl className={classes.formControl}>
+                  <InputLabel htmlFor="to-time" className={classes.form2Label}>To</InputLabel>
+                  <TimeInput
+                    id='to-time'
+                    mode='12h'
+                    className={classes.form2Input}
+                    onChange={(toTime) => this.handleDateChange(toTime)}
+                  />
+                </FormControl>
+
+              </FormGroup>
+
             </form>
           </CardContent>
         </CardActionArea>
