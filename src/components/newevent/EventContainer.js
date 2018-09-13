@@ -165,7 +165,7 @@ class EventContainer extends React.Component {
         <CardActionArea>
           <CardMedia
             className={classes.media}
-            image="/static/images/cards/contemplative-reptile.jpg"
+            image="images/room.jpg"
             title="Room images"
           />
           <CircularProgressbar
