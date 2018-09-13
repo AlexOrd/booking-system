@@ -2,12 +2,13 @@
 import { Route, Switch } from "react-router-dom";
 
 import AboutPage from "./AboutPage";
-import HomePage from "./HomePage";
+import HomePage from "./main/HomePage";
 import NotFoundPage from "./NotFoundPage";
 import PropTypes from "prop-types";
 import React from "react";
 import { hot } from "react-hot-loader";
-import NewEvent from './NewEvent';
+import NewEvent from './newevent/NewEvent';
+import EventInfo from './eventinfo/EventInfo';
 
 // This is a class-based component because the current
 // version of hot reloading won't hot reload a stateless
@@ -28,6 +29,7 @@ class App extends React.Component {
           <Switch>
             <Route exact path="/" component={HomePage} />
             <Route path="/new" component={NewEvent} />
+            <Route path="/info" component={EventInfo} />
             <Route path="/about" component={AboutPage} />
             <Route component={NotFoundPage} />
           </Switch>

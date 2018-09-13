@@ -1,5 +1,6 @@
 import React from 'react';
 import PropTypes from 'prop-types';
+import {Link} from 'react-router-dom'
 
 // Material
 import { withStyles } from '@material-ui/core/styles';
@@ -25,37 +26,37 @@ const ListContainer = (props) => {
   return (
     <Paper className={classes.root}>
       <List>
-        <ListItem button>
+        <ListItem component={Link} to="/info" button>
           <Avatar>
             <ImageIcon />
           </Avatar>
           <ListItemText inset primary="Photos" secondary="Jan 9, 2014" />
         </ListItem>
-        <ListItem button>
+        <ListItem component={Link} to="/info" button>
           <Avatar>
             <WorkIcon />
           </Avatar>
           <ListItemText inset primary="Work" secondary="Jan 7, 2014" />
         </ListItem>
-        <ListItem button>
+        <ListItem component={Link} to="/info" button>
           <Avatar>
             <BeachAccessIcon />
           </Avatar>
           <ListItemText inset primary="Vacation" secondary="July 20, 2014" />
         </ListItem>
-        <ListItem button>
+        <ListItem component={Link} to="/info" button>
           <Avatar>
             <ImageIcon />
           </Avatar>
           <ListItemText inset primary="Photos" secondary="Jan 9, 2014" />
         </ListItem>
-        <ListItem button>
+        <ListItem component={Link} to="/info" button>
           <Avatar>
             <WorkIcon />
           </Avatar>
           <ListItemText inset primary="Work" secondary="Jan 7, 2014" />
         </ListItem>
-        <ListItem button>
+        <ListItem component={Link} to="/info" button>
           <Avatar>
             <BeachAccessIcon />
           </Avatar>
