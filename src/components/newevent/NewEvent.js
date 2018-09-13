@@ -11,12 +11,12 @@ import { withStyles } from '@material-ui/core/styles';
 
 const styles = {
     root: {
-      paddingLeft: '24px',
-      paddingRight: '24px',
-      paddingBottom: '16px',
-      paddingTop: '16px',
-      width: '1024px',
-      height: '600px',
+      paddingLeft: '5px',
+      paddingRight: '5px',
+      paddingBottom: '5px',
+      paddingTop: '5px',
+      width: '1014px',
+      height: '590px',
       display: 'flex',
       justifyContent: 'space-between'
     }
