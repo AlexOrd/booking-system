@@ -9,18 +9,10 @@ import ListContainer from './ListContainer';
 // Material
 import Paper from '@material-ui/core/Paper';
 import { withStyles } from '@material-ui/core/styles';
+import theme from './../muiTheme';
 
 const styles = {
-    root: {
-      paddingLeft: '5px',
-      paddingRight: '5px',
-      paddingBottom: '5px',
-      paddingTop: '5px',
-      width: '1014px',
-      height: '590px',
-      display: 'flex',
-      justifyContent: 'space-between'
-    }
+    root: theme.root
 };
 
 const HomePage = (props) => {

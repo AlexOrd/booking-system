@@ -5,20 +5,17 @@ import Clock from 'react-live-clock';
 // Material
 import { withStyles } from '@material-ui/core/styles';
 import Paper from '@material-ui/core/Paper';
+import theme from '../muiTheme'
 
 const styles = {
   card: {
-    width: '350px',
-    height: '170px',
-    justifyContent: 'center',
-    alignItems: 'center',
-    display: 'flex',
-    backgroundColor: '#3f51b5'
+    ...theme.components.clockCard,
+  backgroundColor: theme.palette.primary1Color
   },
   clock: {
-    fontFamily: 'Roboto',
-    fontSize: '64px',
-    color: '#FFFFFF'
+    fontFamily: theme.fontFamily,
+    fontSize: theme.fontSize,
+    color: theme.palette.textColor
   },
 };
 
