@@ -11,14 +11,15 @@ import CardContent from '@material-ui/core/CardContent';
 import CardMedia from '@material-ui/core/CardMedia';
 import Button from '@material-ui/core/Button';
 import Typography from '@material-ui/core/Typography';
+import theme from './../muiTheme';
 
 const styles = {
   card: {
-    maxWidth: 650,
+    maxWidth: theme.spacing.cardMaxWidth,
   },
   media: {
-    height: 330,
-    backgroundColor: '#3f51b5'
+    height: theme.spacing.mediaHeightLarge,
+    backgroundColor: theme.palette.primary1Color
   },
 };
 

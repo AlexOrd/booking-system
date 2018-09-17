@@ -12,11 +12,12 @@ import ImageIcon from '@material-ui/icons/Image';
 import ListItem from '@material-ui/core/ListItem';
 import ListItemText from '@material-ui/core/ListItemText';
 import BeachAccessIcon from '@material-ui/icons/BeachAccess';
+import theme from './../muiTheme';
 
 const styles = {
   root: {
-    width: '100%',
-    maxWidth: 360
+    width: theme.spacing.width,
+    maxWidth: theme.spacing.listContainerMaxWidth
   },
 };
 

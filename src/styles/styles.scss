@@ -1,7 +1,7 @@
 /* Variables */
-$vin-blue: #5bb7db;
-$vin-green: #60b044;
-$vin-red: #ff0000;
+$vin-blue:#1958A8;
+$vin-darkblue: #0B314F;
+$vin-red: #EE3361;
 
 /* Styles */
 body {
@@ -19,7 +19,7 @@ h2 {
 	color: $vin-blue;
 }
 
-.savings { color: $vin-green; }
+.savings { color: $vin-darkblue; }
 .loss { color: $vin-red; }
 input.small { width: 46px; }
 td.fuel-savings-label { width: 175px; }
@@ -39,7 +39,7 @@ td.fuel-savings-label { width: 175px; }
    */
   width: 100%;
   .CircularProgressbar-path {
-    stroke: #3e98c7;
+    stroke: $vin-blue;
     stroke-linecap: round;
     transition: stroke-dashoffset 0.5s ease 0s;
   }
@@ -47,7 +47,7 @@ td.fuel-savings-label { width: 175px; }
     stroke: #d6d6d6;
   }
   .CircularProgressbar-text {
-    fill: #3e98c7;
+    fill: $vin-blue;
     font-size: 20px;
     dominant-baseline: middle;
     text-anchor: middle;
@@ -57,7 +57,7 @@ td.fuel-savings-label { width: 175px; }
   }
   &.CircularProgressbar-inverted {
     .CircularProgressbar-background {
-      fill: #3e98c7;
+      fill: $vin-blue;
     }
     .CircularProgressbar-text {
       fill: #fff;

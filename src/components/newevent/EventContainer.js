@@ -5,6 +5,7 @@ import DatePicker from 'react-date-picker';
 import { Chart } from "react-google-charts";
 import CircularProgressbar from 'react-circular-progressbar';
 import * as moment from 'moment';
+import cx from 'classnames';
 
 // Material
 import { withStyles } from '@material-ui/core/styles';
@@ -19,24 +20,26 @@ import Typography from '@material-ui/core/Typography';
 import FormControl from '@material-ui/core/FormControl';
 import InputLabel from '@material-ui/core/InputLabel';
 import FormGroup from '@material-ui/core/FormGroup';
+import theme from '../muiTheme';
 
 import TimeInput from 'material-ui-time-picker'
 
 const styles ={
   card: {
-    width: 650,
+    width: theme.spacing.cardMaxWidth,
   },
-  progressBar: {
-    position: 'absolute',
-    left: '580px',
-    margin: '10px',
-    height: 50,
-    width: 50,
+  color: {
+    color: theme.palette.primary1Color
   },
+  dateLabel:{
+    fontSize: theme.text.form.formLabel.fontSize *3/4
+  },
+  progressBar: theme.components.progressBar,
+  chart: theme.components.chart,
   media: {
-    height: 130,
-    width: 650,
-    backgroundColor: '#3f51b5'
+    height: theme.spacing.mediaHeightSmall / 2,
+    width: theme.spacing.cardMaxWidth,
+    backgroundColor: theme.palette.primary1Color
   },
   content: {
     height: '380px',
@@ -47,45 +50,26 @@ const styles ={
   form: {
     display: 'flex',
     alignItems: 'center',
-    flexFlow: 'column',
-    height: '230px'
+    flexFlow: 'column'
   },
+  ...theme.text.form,
+  calendar: theme.components.calendar,
   textField: {
     marginLeft: '16px',
     marginRight: '16px',
-    fontSize: '2em',
+    fontSize: theme.text.input,
     height: '100px'
   },
   dateField: {
-    marginBottom: '5px'
-  },
-  actions: {
-    display: 'flex',
-    justifyContent: 'space-between'
-  },
-  formInput: {
-    fontSize: '1.5em'
-  },
-  form2Input: {
-    fontSize: '2em',
-    width: '73%'
-  },
-  formLabel: {
-    fontSize: '1em',
-    color: '#1958A8'
-  },
-  form2Label: {
-    fontSize: '2em',
-    color: '#1958A8'
-  },
-  formGroup: {
-    width: '380px',
+    marginBottom: '5px',
     display: 'flex',
     flexDirection: 'column'
   },
-  formControl: {
-    width: '230px'
-  }
+  actions: {
+    display: 'flex',
+    justifyContent: 'space-between',
+    paddingTop: theme.spacing.vertical
+  },
 };
 
 const columns = [
@@ -103,9 +87,9 @@ const columns = [
 // ];
 
 const rows = [
-  ['FREE', "", '#13A6E1', moment().startOf('day'), moment().startOf('day').add(2, 'hours')],
-  ['BUSY', "Long meeting", '#0B314F', moment().startOf('day').add(2, 'hours'), moment().endOf('day').subtract(4, 'hours')],
-  ['FREE', "", '#13A6E1', moment().endOf('day').subtract(4, 'hours'), moment().endOf('day')]
+  ['FREE', "", theme.palette.primary1Color, moment().startOf('day'), moment().startOf('day').add(2, 'hours')],
+  ['BUSY', "Long meeting", theme.palette.accent1Color, moment().startOf('day').add(2, 'hours'), moment().endOf('day').subtract(4, 'hours')],
+  ['FREE', "", theme.palette.primary1Color, moment().endOf('day').subtract(4, 'hours'), moment().endOf('day')]
 ];
 
 const options = {
@@ -113,13 +97,13 @@ const options = {
     groupByRowLabel: true,
     showRowLabels: false,
     rowLabelStyle: {
-        fontName: 'Roboto Condensed',
+        fontName: theme.fontFamily,
         fontSize: 14,
         textTransform: 'uppercase',
         color: '#333333'
     },
     barLabelStyle: {
-        fontName: 'Roboto Condensed',
+        fontName: theme.fontFamily,
         textTransform: 'uppercase',
         fontSize: 14
     }
@@ -177,7 +161,9 @@ class EventContainer extends React.Component {
             <Typography gutterBottom variant="headline" component="h1">
               Meeting Room #1
             </Typography>
+            <div>
 
+            </div>
             <form className={classes.form} noValidate autoComplete="off">
               <TextField
                 id="name"
@@ -193,19 +179,25 @@ class EventContainer extends React.Component {
                 }}
                 InputLabelProps={{
                   shrink: true,
-                  className: classes.formLabel,
+                  className: cx(classes.formLabel, classes.color),
                 }}
                 fullWidth
               />
-              <div className={classes.dateField}>
-                <DatePicker
-                  onChange={this.onDateChange}
-                  value={this.state.datepicker}
-                />
+              <div>
+                <div className={classes.dateField}>
+                  <InputLabel htmlFor="date" className={cx(classes.dateLabel, classes.color)} >Date</InputLabel>
+                  <DatePicker
+                    id='date'
+                    onChange={this.onDateChange}
+                    value={this.state.datepicker}
+                    minDate={new Date()}
+                    className={classes.calendar}
+                  />
+                </div>
               </div>
               <FormGroup row className={classes.formGroup}>
                 <FormControl className={classes.formControl}>
-                  <InputLabel htmlFor="from-time" className={classes.form2Label} >From</InputLabel>
+                  <InputLabel htmlFor="from-time" className={cx(classes.formLabel, classes.color)} >From</InputLabel>
                   <TimeInput
                     id='from-time'
                     mode='12h'
@@ -214,7 +206,7 @@ class EventContainer extends React.Component {
                   />
                 </FormControl>
                 <FormControl className={classes.formControl}>
-                  <InputLabel htmlFor="to-time" className={classes.form2Label}>To</InputLabel>
+                  <InputLabel htmlFor="to-time" className={cx(classes.formLabel, classes.color)}>To</InputLabel>
                   <TimeInput
                     id='to-time'
                     mode='12h'
@@ -224,13 +216,15 @@ class EventContainer extends React.Component {
                 </FormControl>
               </FormGroup>
             </form>
-            <Chart
-              chartType="Timeline"
-              options={options}
-              data={[columns, ...rows]}
-              height='150px'
-              width='610px'
-            />
+            <div className={classes.chart}>
+              <Chart
+                chartType="Timeline"
+                options={options}
+                data={[columns, ...rows]}
+                height='150px'
+                width='610px'
+              />
+            </div>
           </CardContent>
         <CardActions className={classes.actions}>
           <Link to="/">

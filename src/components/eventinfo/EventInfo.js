@@ -14,42 +14,29 @@ import Button from '@material-ui/core/Button';
 import Typography from '@material-ui/core/Typography';
 import Avatar from '@material-ui/core/Avatar';
 import Chip from '@material-ui/core/Chip';
+import theme from './../muiTheme';
 
 const styles = {
-    root: {
-      paddingLeft: '5px',
-      paddingRight: '5px',
-      paddingBottom: '5px',
-      paddingTop: '5px',
-      width: '1014px',
-      height: '590px',
-      display: 'flex',
-      justifyContent: 'space-between'
-    },
+    root: theme.root,
     chipsContainer: {
-      display: 'flex',
-      height: '220px',
-      width: '950px',
-      justifyContent: 'space-between',
-      flexWrap: 'wrap',
-      padding: 8,
+      ...theme.components.chipsContainer,
+      padding: theme.spacing.chipsSpacing,
     },
     chip: {
-      margin: 8,
+      margin: theme.spacing.chipsSpacing,
     },
     card: {
-      width: '100%'
+      width: theme.spacing.width
     },
     actions: {
-      width: '100%'
+      width: theme.spacing.width
     },
     media: {
-      height: 170,
-      backgroundColor: '#3f51b5'
+      height: theme.spacing.mediaHeightSmall,
+      backgroundColor: theme.palette.primary1Color
     },
     container: {
-      width: '100%',
-      height: '330px'
+      ...theme.container
     }
 };
 
