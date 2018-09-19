@@ -17,10 +17,11 @@ let muiTheme =  {
     mediaHeightLarge: 330,
     textHeight: 100,
     cardMaxWidth: 650,
+    cardMinWidth: 220,
     listContainerMaxWidth: 360
   },
   text: {
-    title: '1.5em',
+    title: 18,
     input: '2em',
     form: {
       formInput: {
@@ -67,6 +68,11 @@ let muiTheme =  {
       margin: '10px',
       height: 50,
       width: 50,
+    },
+    roomsContainer: {
+      display: 'flex',
+      justifyContent: 'space-between',
+      flexWrap: 'wrap'
     },
     chipsContainer: {
       display: 'flex',
