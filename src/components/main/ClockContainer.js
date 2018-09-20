@@ -8,9 +8,13 @@ import Paper from '@material-ui/core/Paper';
 import theme from '../muiTheme'
 
 const styles = {
-  card: {
+  freeMode: {
     ...theme.components.clockCard,
-  backgroundColor: theme.palette.primary1Color
+    backgroundColor: theme.palette.primary1Color
+  },
+  busyMode: {
+    ...theme.components.clockCard,
+    backgroundColor: theme.palette.secondaryColor
   },
   clock: {
     fontFamily: theme.fontFamily,
@@ -20,10 +24,10 @@ const styles = {
 };
 
 const ClockContainer = (props) => {
-  const { classes } = props;
+  const { classes, busyMode } = props;
 
   return (
-    <Paper className={classes.card}>
+    <Paper className={busyMode ? classes.busyMode : classes.freeMode}>
       <Clock className={classes.clock} ticking={true}/>
     </Paper>
   );
@@ -31,6 +35,7 @@ const ClockContainer = (props) => {
 
 ClockContainer.propTypes = {
   classes: PropTypes.object.isRequired,
+  busyMode: PropTypes.PropTypes.bool
 };
 
 export default withStyles(styles)(ClockContainer);
