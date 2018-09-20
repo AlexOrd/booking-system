@@ -51,7 +51,7 @@ const EventInfo = (props) => {
         <CardActionArea className={classes.actions}>
           <CardMedia
             className={classes.media}
-            image="images/room.jpg"
+            image="images/room1.jpg"
             title="Room images"
           />
         </CardActionArea>

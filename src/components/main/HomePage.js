@@ -17,10 +17,9 @@ const styles = {
 
 const HomePage = (props) => {
   const { classes } = props;
-
   return (
     <Paper className={classes.root} elevation={1}>
-      <InfoContainer />
+      <InfoContainer/>
       <div>
         <ClockContainer />
         <ListContainer />
