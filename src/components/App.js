@@ -1,4 +1,7 @@
 /* eslint-disable import/no-named-as-default */
+const API_KEY = 'AIzaSyAdE32PL8frgPNJUgjhdr83fz8FeOmEBoY';
+const CLIENT_ID = 'stately-magpie-216913';
+
 import { Route, Switch } from "react-router-dom";
 
 import AboutPage from "./AboutPage";
@@ -16,20 +19,44 @@ import ChooseRoomPage from './ChooseRoom/ChooseRoom';
 // component at the top-level.
 
 class App extends React.Component {
+  constructor(props) {
+    super(props);
+    this.state = {
+      gapiReady: false
+    };
+  }
+
+  loadCalendarApi() {
+    const script = document.createElement("script");
+    script.src = "https://apis.google.com/js/client.js";
+
+    script.onload = () => {
+      window.gapi.load('client', () => {
+        window.gapi.client.setApiKey(API_KEY);
+        window.gapi.client.load('calendar', 'v3', () => {
+          var request = window.gapi.client.calendar.calendarList.list();
+          request.execute(function(resp) {
+            var cals = resp.items;
+          });
+          this.setState({ gapiReady: true });
+        });
+      });
+    };
+
+    document.body.appendChild(script);
+  }
+
+  componentDidMount() {
+    this.loadCalendarApi();
+  }
+
   render() {
-    // const activeStyle = { color: 'blue' };
+    if (this.state.gapiReady) {
     return (
       <div>
-        {/* <div>
-          <NavLink exact to="/" activeStyle={activeStyle}>Home</NavLink>
-          {' | '}
-          <NavLink to="/fuel-savings" activeStyle={activeStyle}>Demo App</NavLink>
-          {' | '}
-          <NavLink to="/about" activeStyle={activeStyle}>About</NavLink>
-        </div> */}
           <Switch>
             <Route exact path="/" component={HomePage} />
-            <Route path="/new" component={NewEvent} />
+              <Route path="/new" component={NewEvent} />
             <Route path="/info" component={EventInfo} />
             <Route path="/about" component={AboutPage} />
             <Route path="/settings" component={ChooseRoomPage} />
@@ -37,7 +64,12 @@ class App extends React.Component {
           </Switch>
       </div>
     );
+  } else {
+    return (
+      <h1>GAPI loading.</h1>
+    );
   }
+}
 }
 
 App.propTypes = {
