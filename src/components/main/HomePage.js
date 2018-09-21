@@ -27,7 +27,7 @@ class HomePage extends React.Component {
   }
 
   componentDidMount() {
-		this.props.actions.getCalendarEvents(1);
+		this.props.actions.loadEvents();
 	}
 
   redirectToAddCoursePage() {
