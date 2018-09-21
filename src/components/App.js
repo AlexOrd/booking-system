@@ -13,6 +13,7 @@ import { hot } from "react-hot-loader";
 import NewEvent from './NewEvent/NewEvent';
 import EventInfo from './EventInfo/EventInfo';
 import ChooseRoomPage from './ChooseRoom/ChooseRoom';
+import {calendarList} from '../../src/mockdata';
 
 // This is a class-based component because the current
 // version of hot reloading won't hot reload a stateless
@@ -22,26 +23,29 @@ class App extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
-      gapiReady: false
+      gapiReady: false,
+      calendarList: []
     };
   }
 
   loadCalendarApi() {
     const script = document.createElement("script");
+    let calendars;
     script.src = "https://apis.google.com/js/client.js";
 
-    script.onload = () => {
-      window.gapi.load('client', () => {
-        window.gapi.client.setApiKey(API_KEY);
-        window.gapi.client.load('calendar', 'v3', () => {
-          var request = window.gapi.client.calendar.calendarList.list();
-          request.execute(function(resp) {
-            var cals = resp.items;
-          });
-          this.setState({ gapiReady: true });
-        });
-      });
-    };
+    // script.onload = () => {
+    //   window.gapi.load('client', () => {
+    //     window.gapi.client.setApiKey(API_KEY);
+    //     window.gapi.client.load('calendar', 'v3', () => {
+    //       var request = window.gapi.client.calendar.calendarList.list();
+    //       request.execute(function(resp) {
+           // var cals = resp.items;
+            calendars = calendarList;
+          // });
+          this.setState({ gapiReady: true, calendarList: calendars });
+        // });
+      // });
+    // };
 
     document.body.appendChild(script);
   }
@@ -59,7 +63,7 @@ class App extends React.Component {
               <Route path="/new" component={NewEvent} />
             <Route path="/info" component={EventInfo} />
             <Route path="/about" component={AboutPage} />
-            <Route path="/settings" component={ChooseRoomPage} />
+            <Route path="/settings" render={(props) => <ChooseRoomPage props={props} calendars={this.state.calendarList}/>} />
             <Route component={NotFoundPage} />
           </Switch>
       </div>

@@ -1,12 +1,13 @@
-import {GET_EVENTS} from '../constants/actionTypes';
+import {GET_EVENTS, SET_CALENDAR, GET_CALENDAR} from '../constants/actionTypes';
 import objectAssign from 'object-assign';
+import initialState from "./calendarInitialState";
 
 // IMPORTANT: Note that with Redux, state should NEVER be changed.
 // State is considered immutable. Instead,
 // create a copy of the state passed and set new values on the copy.
 // Note that I'm using Object.assign to create a copy of current state
 // and update values on the copy.
-export default function calendarDataReducer(state = {}, action) {
+export default function calendarDataReducer(state = initialState, action) {
 
   const data = {
     events: {
@@ -17,10 +18,11 @@ export default function calendarDataReducer(state = {}, action) {
 
   switch (action.type) {
     case GET_EVENTS:
-      // For this example, just simulating a save by changing date modified.
-      // In a real app using Redux, you might use redux-thunk and handle the async call in fuelSavingsActions.js
       return objectAssign({}, state, data);
-
+    case SET_CALENDAR:
+      return objectAssign({}, state, {calendar: action.calendar});
+    case GET_CALENDAR:
+      return state.calendar;
     default:
       return state;
   }

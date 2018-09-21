@@ -1,6 +1,9 @@
 import React from 'react';
 import PropTypes from "prop-types";
 import { Link } from 'react-router-dom';
+import { connect } from 'react-redux';
+import {setCalendarData} from '../../actions/calendarDataActions';
+import objectAssign from 'object-assign'
 
 // Material
 import Paper from '@material-ui/core/Paper';
@@ -35,28 +38,19 @@ const styles = {
   },
   roomCardContent: {
     color: theme.palette.accent1Color,
-    fontSize: theme.text.title,
+    fontSize: theme.text.subtitle,
     display: 'flex'
   }
 };
 
+const ChooseRoom = (propsList) => {
+  const { props, calendars, classes, dispatch } = propsList;
 
-const mockRooms = Array.from(Array(4).keys()).map((v) => (
-  {
-    key: v,
-    label: `Room #${v}`,
-    image: `images/room${v}.jpg`,
-    capacity: Math.floor(Math.random()*20),
-    beamer: true
-  }));
-
-const ChooseRoom = (props) => {
-  const { classes } = props;
-
-  const handleClick =(roomId)=> {
-    localStorage.setItem('ROOM_ID', roomId);
-    window.location.assign('/');
-  }
+  const handleClick =(roomData, index) => {
+    localStorage.setItem('ROOM_ID', roomData.id);
+    props.history.push('/');
+    dispatch(setCalendarData(objectAssign({}, roomData, {image: index})))
+  };
 
   return (
     <Paper className={classes.root} elevation={1}>
@@ -67,35 +61,33 @@ const ChooseRoom = (props) => {
           </Typography>
 
           <div className={classes.roomsContainer} elevation={2}>
-            {mockRooms.map(room => {
-              return (
-               <Card key={room.key} className={classes.roomCard}>
-                 <CardMedia
-                   className={classes.media}
-                   image={room.image}
-                   title="Room image"
-                 />
-                 <CardContent>
-                    <Typography gutterBottom variant="headline" component="h3">
-                     {room.label}
-                    </Typography>
-                   <Typography className={classes.roomCardContent}>
-                     Room capacity: {room.capacity}
-                   </Typography>
-                   <Typography className={classes.roomCardContent}>
-                    Beamer: {room.beamer ? <i className="material-icons">done</i> : <i className="material-icons">remove</i>}
-                   </Typography>
-                 </CardContent>
-                 <CardActions>
-                   <Button size="medium" color="primary"  onClick={() => handleClick(room.key)}>
-                     Select
-                   </Button>
-                   <Button disabled size="medium" color="primary">
-                     Remove
-                   </Button>
-                 </CardActions>
-               </Card>
-              );
+            {calendars.items.map((room, index) => {
+              if(room.accessRole === 'writer')
+                return (
+                 <Card key={room.id} className={classes.roomCard}>
+                   <CardMedia
+                     className={classes.media}
+                     image={`images/room${index}.jpg`}
+                     title="Room image"
+                   />
+                   <CardContent>
+                      <Typography gutterBottom variant="headline" component="h3">
+                       {room.summary}
+                      </Typography>
+                     <Typography className={classes.roomCardContent}>
+                       {room.description || 'No description'}
+                     </Typography>
+                   </CardContent>
+                   <CardActions>
+                     <Button size="medium" color="primary"  onClick={() => handleClick(room, index)}>
+                       Select
+                     </Button>
+                     <Button disabled size="medium" color="primary">
+                       Remove
+                     </Button>
+                   </CardActions>
+                 </Card>
+                );
             })}
           </div>
         </CardContent>
@@ -112,7 +104,10 @@ const ChooseRoom = (props) => {
 };
 
 ChooseRoom.propTypes = {
-  classes: PropTypes.object
+  props: PropTypes.object,
+  classes: PropTypes.object,
+  calendars: PropTypes.object,
+  dispatch: PropTypes.func
 };
 
-export default withStyles(styles)(ChooseRoom);
+export default connect()(withStyles(styles)(ChooseRoom));
