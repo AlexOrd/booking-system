@@ -18,3 +18,7 @@ export function loadEvents() {
     });
   }
 }
+export const setCalendarData = calendar => ({
+  type: types.SET_CALENDAR,
+  calendar
+});

@@ -1,8 +1,6 @@
 import React from 'react';
 import PropTypes from "prop-types";
 import { connect } from 'react-redux';
-import { bindActionCreators } from 'redux';
-import * as actions from '../../actions/calendarDataActions';
 
 // Components
 import InfoContainer from './InfoContainer';
@@ -27,7 +25,7 @@ class HomePage extends React.Component {
   }
 
   componentDidMount() {
-		this.props.actions.loadEvents();
+		// this.props.actions.loadEvents();
 	}
 
   redirectToAddCoursePage() {
@@ -35,10 +33,10 @@ class HomePage extends React.Component {
   }
 
   render () {
-    const { classes } = this.props;
+    const { calendarData, classes } = this.props;
     return (
       <Paper className={classes.root} elevation={1}>
-        <InfoContainer />
+        <InfoContainer calendar={calendarData.calendar}/>
         <div>
           <ClockContainer />
           <ListContainer />
@@ -49,9 +47,9 @@ class HomePage extends React.Component {
 }
 
 HomePage.propTypes = {
-  actions: PropTypes.object.isRequired,
   classes: PropTypes.object.isRequired,
-  events: PropTypes.object.isRequired,
+  calendarData: PropTypes.object,
+  actions:  PropTypes.object,
 };
 
 // Styles encapsulation
@@ -60,17 +58,10 @@ const styledHomePage = withStyles(styles)(HomePage);
 // Redux connectors
 function mapStateToProps(state) {
   return {
-    events: state.calendarData
-  };
-}
-
-function mapDispatchToProps(dispatch) {
-  return {
-    actions: bindActionCreators(actions, dispatch)
+    calendarData: state.calendarData
   };
 }
 
 export default connect(
-  mapStateToProps,
-  mapDispatchToProps
+  mapStateToProps
 )(styledHomePage);

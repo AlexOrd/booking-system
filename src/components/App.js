@@ -11,6 +11,7 @@ import { hot } from "react-hot-loader";
 import NewEvent from './NewEvent/NewEvent';
 import EventInfo from './EventInfo/EventInfo';
 import ChooseRoomPage from './ChooseRoom/ChooseRoom';
+import {calendarList} from '../../src/mockdata';
 
 // This is a class-based component because the current
 // version of hot reloading won't hot reload a stateless
@@ -20,12 +21,14 @@ class App extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
-      gapiReady: false
+      gapiReady: false,
+      calendarList: []
     };
   }
 
   loadCalendarApi() {
     const script = document.createElement("script");
+    const calendars = calendarList;
     script.src = "https://apis.google.com/js/client.js";
 
     script.onload = () => {
@@ -36,7 +39,8 @@ class App extends React.Component {
             window.gapi.auth2.getAuthInstance().signIn()
               .then(() => {
                 this.setState({
-                  gapiReady: true
+                  gapiReady: true,
+                  calendarList: calendars
                 });
               })
               .catch(() => {
@@ -44,7 +48,8 @@ class App extends React.Component {
               });
           } else {
             this.setState({
-              gapiReady: true
+              gapiReady: true,
+              calendarList: calendars
             });
           }
         });
@@ -67,7 +72,7 @@ class App extends React.Component {
                 <Route path="/new" component={NewEvent} />
               <Route path="/info" component={EventInfo} />
               <Route path="/about" component={AboutPage} />
-              <Route path="/settings" component={ChooseRoomPage} />
+              <Route path="/settings" render={(props) => <ChooseRoomPage props={props} calendars={this.state.calendarList}/>} />
               <Route component={NotFoundPage} />
             </Switch>
         </div>
