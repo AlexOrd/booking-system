@@ -17,24 +17,44 @@ import Typography from '@material-ui/core/Typography';
 import theme from './../muiTheme';
 
 const styles = {
-  root: theme.root,
+  root: {
+    ...theme.root,
+    flexDirection: 'column',
+    justifyContent: 'space-around'
+  },
+  settingsContainer: {
+    width: '100%',
+    height: '100%',
+    display: "flex",
+    justifyContent: "space-around",
+    flexDirection: "column",
+  },
+  title: {
+    textAlign: "center",
+  },
   roomsContainer: {
-    ...theme.components.roomsContainer,
+    maxHeight: 390,
+    overflow: 'auto',
+    display: 'flex',
+    justifyContent: 'space-around',
+    flexWrap: 'wrap',
     height: theme.root.height - 200,
     width: theme.root.width - 50,
   },
-  card: {
-    width: theme.spacing.width
-  },
   actions: {
-    width: theme.spacing.width
+    width: theme.spacing.width,
+    justifyContent: "space-around",
   },
   media: {
     height: theme.spacing.mediaHeightSmall,
     backgroundColor: theme.palette.primary1Color
   },
   roomCard: {
-    width: theme.spacing.cardMinWidth
+    display: 'flex',
+    flexDirection: 'column',
+    justifyContent: "space-around",
+    width: theme.spacing.cardMinWidth,
+    marginTop: '10px'
   },
   roomCardContent: {
     color: theme.palette.accent1Color,
@@ -54,42 +74,67 @@ const ChooseRoom = (propsList) => {
 
   return (
     <Paper className={classes.root} elevation={1}>
-      <Card className={classes.card}>
-        <CardContent className={classes.container}>
-          <Typography gutterBottom variant="headline" component="h2">
-            Select a room
-          </Typography>
-
-          <div className={classes.roomsContainer} elevation={2}>
-            {calendars.items.map((room, index) => {
-              if(room.accessRole === 'writer')
-                return (
-                 <Card key={room.id} className={classes.roomCard}>
-                   <CardMedia
-                     className={classes.media}
-                     image={`images/room${index}.jpg`}
-                     title="Room image"
-                   />
-                   <CardContent>
-                      <Typography gutterBottom variant="headline" component="h3">
-                       {room.summary}
-                      </Typography>
-                     <Typography className={classes.roomCardContent}>
-                       {room.description || 'No description'}
-                     </Typography>
-                   </CardContent>
-                   <CardActions>
-                     <Button size="medium" color="primary"  onClick={() => handleClick(room, index)}>
-                       Select
-                     </Button>
-                     <Button disabled size="medium" color="primary">
-                       Remove
-                     </Button>
-                   </CardActions>
-                 </Card>
-                );
-            })}
-          </div>
+      <Card className={classes.settingsContainer}>
+        <Typography className={classes.title} gutterBottom variant="headline" component="h2">
+          Select a room
+        </Typography>
+        <CardContent className={classes.roomsContainer}>
+          {calendars.items.map((room, index) => {
+            if(room.accessRole === 'writer')
+              return (
+                <Card key={room.id} className={classes.roomCard}>
+                  <CardMedia
+                    className={classes.media}
+                    image={`images/room${index}.jpg`}
+                    title="Room image"
+                  />
+                  <CardContent>
+                    <Typography gutterBottom variant="headline" component="h3">
+                      {room.summary}
+                    </Typography>
+                    <Typography className={classes.roomCardContent}>
+                      {room.description || 'No description'}
+                    </Typography>
+                  </CardContent>
+                  <CardActions className={classes.actions}>
+                    <Button size="medium" color="primary"  onClick={() => handleClick(room, index)}>
+                      Select
+                    </Button>
+                    <Button disabled size="medium" color="primary">
+                      Remove
+                    </Button>
+                  </CardActions>
+                </Card>
+              );
+          })}
+          {calendars.items.map((room, index) => {
+            if(room.accessRole === 'writer')
+              return (
+                <Card key={room.id} className={classes.roomCard}>
+                  <CardMedia
+                    className={classes.media}
+                    image={`images/room${index}.jpg`}
+                    title="Room image"
+                  />
+                  <CardContent>
+                    <Typography gutterBottom variant="headline" component="h3">
+                      {room.summary}
+                    </Typography>
+                    <Typography className={classes.roomCardContent}>
+                      {room.description || 'No description'}
+                    </Typography>
+                  </CardContent>
+                  <CardActions className={classes.actions}>
+                    <Button size="medium" color="primary"  onClick={() => handleClick(room, index)}>
+                      Select
+                    </Button>
+                    <Button disabled size="medium" color="primary">
+                      Remove
+                    </Button>
+                  </CardActions>
+                </Card>
+              );
+          })}
         </CardContent>
         <CardActions>
           <Link to="/">
@@ -109,5 +154,11 @@ ChooseRoom.propTypes = {
   calendars: PropTypes.object,
   dispatch: PropTypes.func
 };
+
+function mapDispatchToProps(dispatch) {
+  return {
+    actions: bindActionCreators(actions, dispatch)
+  };
+}
 
 export default connect()(withStyles(styles)(ChooseRoom));

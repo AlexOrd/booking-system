@@ -1,9 +1,7 @@
 /* eslint-disable import/no-named-as-default */
-const API_KEY = 'AIzaSyAdE32PL8frgPNJUgjhdr83fz8FeOmEBoY';
-const CLIENT_ID = 'stately-magpie-216913';
 
+import { googleApi } from '../../config.js';
 import { Route, Switch } from "react-router-dom";
-
 import AboutPage from "./AboutPage";
 import HomePage from "./main/HomePage";
 import NotFoundPage from "./NotFoundPage";
@@ -30,22 +28,33 @@ class App extends React.Component {
 
   loadCalendarApi() {
     const script = document.createElement("script");
-    let calendars;
+    const calendars = calendarList;
     script.src = "https://apis.google.com/js/client.js";
 
-    // script.onload = () => {
-    //   window.gapi.load('client', () => {
-    //     window.gapi.client.setApiKey(API_KEY);
-    //     window.gapi.client.load('calendar', 'v3', () => {
-    //       var request = window.gapi.client.calendar.calendarList.list();
-    //       request.execute(function(resp) {
-           // var cals = resp.items;
-            calendars = calendarList;
-          // });
-          this.setState({ gapiReady: true, calendarList: calendars });
-        // });
-      // });
-    // };
+    script.onload = () => {
+      window.gapi.load('client', () => {
+        window.gapi.client.init(googleApi).then(() => {
+          const isAuth = window.gapi.auth2.getAuthInstance().isSignedIn.get();
+          if (!isAuth) {
+            window.gapi.auth2.getAuthInstance().signIn()
+              .then(() => {
+                this.setState({
+                  gapiReady: true,
+                  calendarList: calendars
+                });
+              })
+              .catch(() => {
+
+              });
+          } else {
+            this.setState({
+              gapiReady: true,
+              calendarList: calendars
+            });
+          }
+        });
+      });
+    };
 
     document.body.appendChild(script);
   }
@@ -56,24 +65,26 @@ class App extends React.Component {
 
   render() {
     if (this.state.gapiReady) {
-    return (
-      <div>
-          <Switch>
-            <Route exact path="/" component={HomePage} />
-              <Route path="/new" component={NewEvent} />
-            <Route path="/info" component={EventInfo} />
-            <Route path="/about" component={AboutPage} />
-            <Route path="/settings" render={(props) => <ChooseRoomPage props={props} calendars={this.state.calendarList}/>} />
-            <Route component={NotFoundPage} />
-          </Switch>
-      </div>
-    );
-  } else {
-    return (
-      <h1>GAPI loading.</h1>
-    );
+      return (
+        <div>
+            <Switch>
+              <Route exact path="/" component={HomePage} />
+                <Route path="/new" component={NewEvent} />
+              <Route path="/info" component={EventInfo} />
+              <Route path="/about" component={AboutPage} />
+              <Route path="/settings" render={(props) => <ChooseRoomPage props={props} calendars={this.state.calendarList}/>} />
+              <Route component={NotFoundPage} />
+            </Switch>
+        </div>
+      );
+    } else {
+      return (
+        <div style={{ display: 'flex', justifyContent: 'center', alignItems: 'center' }}>
+          <h1> GAPI loading... </h1>
+        </div>
+      );
+    }
   }
-}
 }
 
 App.propTypes = {

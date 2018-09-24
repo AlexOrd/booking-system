@@ -1,4 +1,4 @@
-import {GET_EVENTS, SET_CALENDAR, GET_CALENDAR} from '../constants/actionTypes';
+import {LOAD_EVENTS_SUCCESS,  SET_CALENDAR, GET_CALENDAR} from '../constants/actionTypes';
 import objectAssign from 'object-assign';
 import initialState from "./calendarInitialState";
 
@@ -8,17 +8,9 @@ import initialState from "./calendarInitialState";
 // Note that I'm using Object.assign to create a copy of current state
 // and update values on the copy.
 export default function calendarDataReducer(state = initialState, action) {
-
-  const data = {
-    events: {
-      a: 'hello',
-      b: 'buy'
-    }
-  };
-
   switch (action.type) {
-    case GET_EVENTS:
-      return objectAssign({}, state, data);
+    case LOAD_EVENTS_SUCCESS:
+      return objectAssign({}, state, {events: action.events});
     case SET_CALENDAR:
       return objectAssign({}, state, {calendar: action.calendar});
     case GET_CALENDAR:

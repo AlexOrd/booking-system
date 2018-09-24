@@ -1,6 +1,7 @@
 import React from 'react';
 import PropTypes from "prop-types";
 import { connect } from 'react-redux';
+import {bindActionCreators} from 'redux';
 
 // Components
 import InfoContainer from './InfoContainer';
@@ -20,6 +21,16 @@ const styles = {
 class HomePage extends React.Component {
   constructor(props) {
     super(props);
+
+    this.redirectToAddCoursePage = this.redirectToAddCoursePage.bind(this);
+  }
+
+  componentDidMount() {
+		// this.props.actions.loadEvents();
+	}
+
+  redirectToAddCoursePage() {
+    this.console.log();
   }
 
   render () {
@@ -39,6 +50,7 @@ class HomePage extends React.Component {
 HomePage.propTypes = {
   classes: PropTypes.object.isRequired,
   calendarData: PropTypes.object,
+  actions:  PropTypes.object,
 };
 
 // Styles encapsulation
