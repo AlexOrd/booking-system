@@ -2,8 +2,8 @@ import React from 'react';
 import PropTypes from "prop-types";
 import { Link } from 'react-router-dom';
 import { connect } from 'react-redux';
-import {setCalendarData} from '../../actions/calendarDataActions';
-import objectAssign from 'object-assign'
+import * as actions from '../../actions/calendarDataActions';
+import {bindActionCreators} from 'redux';
 
 // Material
 import Paper from '@material-ui/core/Paper';
@@ -63,24 +63,36 @@ const styles = {
   }
 };
 
-const ChooseRoom = (propsList) => {
-  const { props, calendars, classes, dispatch } = propsList;
+class ChooseRoom extends React.Component {
+  constructor(props) {
+    super(props);
+  }
 
-  const handleClick =(roomData, index) => {
+  componentDidMount() {
+		this.props.actions.getCalendarList();
+	}
+
+  selectRoomCalendar = (roomData, index) => {
     localStorage.setItem('ROOM_ID', roomData.id);
-    props.history.push('/');
-    dispatch(setCalendarData(objectAssign({}, roomData, {image: index})))
+    this.props.actions.setCalendarData({
+      ...roomData,
+      imageId: index
+    });
+    this.props.history.push('/');
   };
 
-  return (
-    <Paper className={classes.root} elevation={1}>
-      <Card className={classes.settingsContainer}>
-        <Typography className={classes.title} gutterBottom variant="headline" component="h2">
-          Select a room
-        </Typography>
-        <CardContent className={classes.roomsContainer}>
-          {calendars.items.map((room, index) => {
-            if(room.accessRole === 'writer')
+
+  render () {
+    const { calendarList, classes } = this.props;
+
+    return (
+      <Paper className={classes.root} elevation={1}>
+        <Card className={classes.settingsContainer}>
+          <Typography className={classes.title} gutterBottom variant="headline" component="h2">
+            Select a room
+          </Typography>
+          <CardContent className={classes.roomsContainer}>
+            {calendarList.map((room, index) => {
               return (
                 <Card key={room.id} className={classes.roomCard}>
                   <CardMedia
@@ -97,7 +109,7 @@ const ChooseRoom = (propsList) => {
                     </Typography>
                   </CardContent>
                   <CardActions className={classes.actions}>
-                    <Button size="medium" color="primary"  onClick={() => handleClick(room, index)}>
+                    <Button size="medium" color="primary"  onClick={() => this.selectRoomCalendar(room, index)}>
                       Select
                     </Button>
                     <Button disabled size="medium" color="primary">
@@ -106,54 +118,35 @@ const ChooseRoom = (propsList) => {
                   </CardActions>
                 </Card>
               );
-          })}
-          {calendars.items.map((room, index) => {
-            if(room.accessRole === 'writer')
-              return (
-                <Card key={room.id} className={classes.roomCard}>
-                  <CardMedia
-                    className={classes.media}
-                    image={`images/room${index}.jpg`}
-                    title="Room image"
-                  />
-                  <CardContent>
-                    <Typography gutterBottom variant="headline" component="h3">
-                      {room.summary}
-                    </Typography>
-                    <Typography className={classes.roomCardContent}>
-                      {room.description || 'No description'}
-                    </Typography>
-                  </CardContent>
-                  <CardActions className={classes.actions}>
-                    <Button size="medium" color="primary"  onClick={() => handleClick(room, index)}>
-                      Select
-                    </Button>
-                    <Button disabled size="medium" color="primary">
-                      Remove
-                    </Button>
-                  </CardActions>
-                </Card>
-              );
-          })}
-        </CardContent>
-        <CardActions>
-          <Link to="/">
-            <Button variant="contained" size="large" color="primary">
-              BACK
-            </Button>
-          </Link>
-        </CardActions>
-      </Card>
-    </Paper>
-  );
-};
+            })}
+          </CardContent>
+          <CardActions>
+            <Link to="/">
+              <Button variant="contained" size="large" color="primary">
+                BACK
+              </Button>
+            </Link>
+          </CardActions>
+        </Card>
+      </Paper>
+    );
+  }
+}
 
 ChooseRoom.propTypes = {
-  props: PropTypes.object,
+  calendarList: PropTypes.array,
+  history: PropTypes.object,
+  actions: PropTypes.object,
   classes: PropTypes.object,
-  calendars: PropTypes.object,
-  dispatch: PropTypes.func
 };
+
+const styledChooseRoom = withStyles(styles)(ChooseRoom);
+
+function mapStateToProps(state) {
+  return {
+    calendarList: state.calendarData.calendarList
+  };
+}
 
 function mapDispatchToProps(dispatch) {
   return {
@@ -161,4 +154,7 @@ function mapDispatchToProps(dispatch) {
   };
 }
 
-export default connect()(withStyles(styles)(ChooseRoom));
+export default connect(
+  mapStateToProps,
+  mapDispatchToProps
+)(styledChooseRoom);

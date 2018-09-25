@@ -9,6 +9,12 @@ class calendarEventsAPI {
       'orderBy': 'startTime'
     })
   }
+
+  static calendarList() {
+    return !window.gapi ? Promise.resolve([]) : window.gapi.client.calendar.calendarList.list({
+      'minAccessRole': 'owner'
+    })
+  }
 }
 
 export default calendarEventsAPI;
