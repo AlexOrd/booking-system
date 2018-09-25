@@ -16,6 +16,9 @@ import theme from './../muiTheme';
 const styles = {
   card: {
     width: theme.spacing.cardMaxWidth,
+    display: 'flex',
+    flexFlow: 'column',
+    justifyContent: 'space-between'
   },
   media: {
     height: theme.spacing.mediaHeightLarge,
@@ -30,7 +33,7 @@ const InfoContainer = (props) => {
       <CardActionArea>
         <CardMedia
           className={classes.media}
-          image={`images/room${calendar.image}.jpg`}
+          image={`images/room${calendar.imageId}.jpg`}
           title="Room images"
         />
         <CardContent>
@@ -55,7 +58,11 @@ const InfoContainer = (props) => {
 
 InfoContainer.propTypes = {
   classes: PropTypes.object.isRequired,
-  calendar: PropTypes.object
+  calendar: PropTypes.shape({
+    imageId: PropTypes.number,
+    summary: PropTypes.string,
+    description: PropTypes.string,
+  }),
 };
 
 export default withStyles(styles)(InfoContainer);

@@ -2,6 +2,7 @@ import React from 'react';
 import PropTypes from "prop-types";
 import { connect } from 'react-redux';
 import {bindActionCreators} from 'redux';
+import * as actions from '../../actions/calendarDataActions';
 
 // Components
 import InfoContainer from './InfoContainer';
@@ -26,7 +27,7 @@ class HomePage extends React.Component {
   }
 
   componentDidMount() {
-		// this.props.actions.loadEvents();
+		this.props.actions.loadEvents();
 	}
 
   redirectToAddCoursePage() {
@@ -63,6 +64,13 @@ function mapStateToProps(state) {
   };
 }
 
+function mapDispatchToProps(dispatch) {
+  return {
+    actions: bindActionCreators(actions, dispatch)
+  };
+}
+
 export default connect(
-  mapStateToProps
+  mapStateToProps,
+  mapDispatchToProps
 )(styledHomePage);

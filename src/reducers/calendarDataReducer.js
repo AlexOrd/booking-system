@@ -1,4 +1,4 @@
-import {LOAD_EVENTS_SUCCESS,  SET_CALENDAR, GET_CALENDAR} from '../constants/actionTypes';
+import {LOAD_EVENTS_SUCCESS,  SET_CALENDAR, GET_CALENDAR, LOAD_CALENDAR_LIST_SUCCESS} from '../constants/actionTypes';
 import objectAssign from 'object-assign';
 import initialState from "./calendarInitialState";
 
@@ -11,8 +11,10 @@ export default function calendarDataReducer(state = initialState, action) {
   switch (action.type) {
     case LOAD_EVENTS_SUCCESS:
       return objectAssign({}, state, {events: action.events});
+    case LOAD_CALENDAR_LIST_SUCCESS:
+      return objectAssign({}, state, {calendarList: action.list});
     case SET_CALENDAR:
-      return objectAssign({}, state, {calendar: action.calendar});
+      return objectAssign({}, state, {calendar: action.calendarData});
     case GET_CALENDAR:
       return state.calendar;
     default:

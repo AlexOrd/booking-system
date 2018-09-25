@@ -1,7 +1,7 @@
 /* eslint-disable import/no-named-as-default */
 
 import { googleApi } from '../../config.js';
-import { Route, Switch } from "react-router-dom";
+import { Route, Switch, Redirect } from "react-router-dom";
 import AboutPage from "./AboutPage";
 import HomePage from "./main/HomePage";
 import NotFoundPage from "./NotFoundPage";
@@ -11,12 +11,18 @@ import { hot } from "react-hot-loader";
 import NewEvent from './NewEvent/NewEvent';
 import EventInfo from './EventInfo/EventInfo';
 import ChooseRoomPage from './ChooseRoom/ChooseRoom';
-import {calendarList} from '../../src/mockdata';
 
 // This is a class-based component because the current
 // version of hot reloading won't hot reload a stateless
 // component at the top-level.
 
+const PrivateRoute = ({ component: Component, ...rest }) => (
+  <Route {...rest} render={(props) => (
+    localStorage.getItem('ROOM_ID')
+      ? <Component {...props} />
+      : <Redirect to='/settings' />
+  )} />
+)
 class App extends React.Component {
   constructor(props) {
     super(props);
@@ -28,7 +34,6 @@ class App extends React.Component {
 
   loadCalendarApi() {
     const script = document.createElement("script");
-    const calendars = calendarList;
     script.src = "https://apis.google.com/js/client.js";
 
     script.onload = () => {
@@ -39,8 +44,7 @@ class App extends React.Component {
             window.gapi.auth2.getAuthInstance().signIn()
               .then(() => {
                 this.setState({
-                  gapiReady: true,
-                  calendarList: calendars
+                  gapiReady: true
                 });
               })
               .catch(() => {
@@ -48,8 +52,7 @@ class App extends React.Component {
               });
           } else {
             this.setState({
-              gapiReady: true,
-              calendarList: calendars
+              gapiReady: true
             });
           }
         });
@@ -68,11 +71,11 @@ class App extends React.Component {
       return (
         <div>
             <Switch>
-              <Route exact path="/" component={HomePage} />
-                <Route path="/new" component={NewEvent} />
-              <Route path="/info" component={EventInfo} />
-              <Route path="/about" component={AboutPage} />
-              <Route path="/settings" render={(props) => <ChooseRoomPage props={props} calendars={this.state.calendarList}/>} />
+              <PrivateRoute exact path="/" component={HomePage} />
+              <PrivateRoute path="/new" component={NewEvent} />
+              <PrivateRoute path="/info" component={EventInfo} />
+              <PrivateRoute path="/about" component={AboutPage} />
+              <Route path="/settings" render={(props) => <ChooseRoomPage history={props.history}/>} />
               <Route component={NotFoundPage} />
             </Switch>
         </div>
