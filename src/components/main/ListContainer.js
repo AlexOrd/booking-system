@@ -1,6 +1,9 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import {Link} from 'react-router-dom'
+import { Link } from 'react-router-dom'
+import * as moment from 'moment';
+import TextTruncate from 'react-text-truncate';
+import { emailToName } from '../../utils/texts';
 
 // Material
 import { withStyles } from '@material-ui/core/styles';
@@ -11,58 +14,61 @@ import WorkIcon from '@material-ui/icons/Work';
 import ImageIcon from '@material-ui/icons/Image';
 import ListItem from '@material-ui/core/ListItem';
 import ListItemText from '@material-ui/core/ListItemText';
-import BeachAccessIcon from '@material-ui/icons/BeachAccess';
+import AccountCircleIcon from '@material-ui/icons/AccountCircle';
 import theme from './../muiTheme';
 
 const styles = {
   root: {
-    width: theme.spacing.width,
-    maxWidth: theme.spacing.listContainerMaxWidth
+    width: '360px',
+    height: '100%',
+    maxWidth: theme.spacing.listContainerMaxWidth,
+    maxHeight: '100%',
+    overflow: 'auto'
   },
+  eventDescription: {
+  },
+  timeAvatar:  {
+    width: '60px',
+    height: '60px',
+    backgroundColor: theme.palette.primary1Color
+  }
 };
 
 const ListContainer = (props) => {
-  const { classes } = props;
+  const { events, classes } = props;
+  const formattedEvents = events.map(event => {
+    const authorName = emailToName(event.creator.email);
+    const startTime = moment(event.start.dateTime).format('HH:MM');
+    const endTime = moment(event.end.dateTime).format('HH:MM');
+    const persons = event.attendees ? event.attendees : [];
 
+
+    return {
+      id: event.id,
+      title: event.summary,
+      startTime,
+      endTime,
+      description:
+        <div className={classes.eventDescription}>
+          { `Created by: ${authorName}` } <br/>
+          <AccountCircleIcon style={{ fontSize: 14 }}/> { `${persons.length + 1} persons | ` } { startTime } - { endTime }
+        </div>
+    }
+
+  });
   return (
     <Paper className={classes.root}>
       <List>
-        <ListItem component={Link} to="/info" button>
-          <Avatar>
-            <ImageIcon />
-          </Avatar>
-          <ListItemText inset primary="Photos" secondary="Jan 9, 2014" />
-        </ListItem>
-        <ListItem component={Link} to="/info" button>
-          <Avatar>
-            <WorkIcon />
-          </Avatar>
-          <ListItemText inset primary="Work" secondary="Jan 7, 2014" />
-        </ListItem>
-        <ListItem component={Link} to="/info" button>
-          <Avatar>
-            <BeachAccessIcon />
-          </Avatar>
-          <ListItemText inset primary="Vacation" secondary="July 20, 2014" />
-        </ListItem>
-        <ListItem component={Link} to="/info" button>
-          <Avatar>
-            <ImageIcon />
-          </Avatar>
-          <ListItemText inset primary="Photos" secondary="Jan 9, 2014" />
-        </ListItem>
-        <ListItem component={Link} to="/info" button>
-          <Avatar>
-            <WorkIcon />
-          </Avatar>
-          <ListItemText inset primary="Work" secondary="Jan 7, 2014" />
-        </ListItem>
-        <ListItem component={Link} to="/info" button>
-          <Avatar>
-            <BeachAccessIcon />
-          </Avatar>
-          <ListItemText inset primary="Vacation" secondary="July 20, 2014" />
-        </ListItem>
+        {formattedEvents.map((event) => {
+          return (
+            <ListItem key={event.id} component={Link} to={`/event/${event.id}`} button>
+              <Avatar className={classes.timeAvatar}>
+                {event.startTime}
+              </Avatar>
+              <ListItemText inset primary={event.title} secondary={event.description} />
+            </ListItem>
+          );
+        })}
       </List>
     </Paper>
   );
@@ -70,6 +76,7 @@ const ListContainer = (props) => {
 
 ListContainer.propTypes = {
   classes: PropTypes.object.isRequired,
+  events: PropTypes.array,
 };
 
 export default withStyles(styles)(ListContainer);

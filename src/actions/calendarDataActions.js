@@ -24,9 +24,9 @@ export function loadCalendarListSuccess(list) {
 
 // thunk
 
-export function loadEvents() {
+export function loadEvents(calendarId, timeMin, timeMax) {
   return function(dispatch) {
-    eventsAPI.getEvents().then(response => {
+    eventsAPI.getEvents(calendarId, timeMin, timeMax).then(response => {
       const events = response.result.items;
       dispatch(loadEventsSuccess(events))
     }).catch(error => {
@@ -38,7 +38,8 @@ export function loadEvents() {
 export function getCalendarList() {
   return function(dispatch) {
     eventsAPI.calendarList().then(response => {
-      const list = response.result.items;
+      // filter primary calendar
+      const list = response.result.items.filter(calendar => calendar.id != calendar.summary);
       dispatch(loadCalendarListSuccess(list))
     }).catch(error => {
       throw(error)
