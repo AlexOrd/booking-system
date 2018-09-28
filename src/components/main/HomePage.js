@@ -44,7 +44,7 @@ class HomePage extends React.Component {
         <InfoContainer calendar={calendar} />
         <div className={classes.menu}>
           <ClockContainer />
-          <ListContainer events={events} />
+          <ListContainer />
         </div>
       </Paper>
     );

@@ -54,8 +54,9 @@ class EventPage extends React.Component {
     const currentEvent = events.find(event => event.id == selectedId)
     const eventStartTime = moment(currentEvent.start.dateTime).format('HH:MM');
     const eventEndTime = moment(currentEvent.end.dateTime).format('HH:MM');
-    const personsWithCreator = [{ email: currentEvent.creator.email, responseStatus: 'accepted'}]
-      .concat(currentEvent.attendees);
+    const personsWithCreator = currentEvent.attendees ?
+      [{ email: currentEvent.creator.email, responseStatus: 'accepted'}].concat(currentEvent.attendees) :
+      [{ email: currentEvent.creator.email, responseStatus: 'accepted'}];
     const persons = personsWithCreator.map(person => {
       const name = emailToName(person.email);
       return {

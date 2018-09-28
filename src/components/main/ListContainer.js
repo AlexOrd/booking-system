@@ -3,6 +3,7 @@ import PropTypes from 'prop-types';
 import { Link } from 'react-router-dom'
 import * as moment from 'moment';
 import TextTruncate from 'react-text-truncate';
+import { connect } from 'react-redux';
 import { emailToName } from '../../utils/texts';
 
 // Material
@@ -79,4 +80,16 @@ ListContainer.propTypes = {
   events: PropTypes.array,
 };
 
-export default withStyles(styles)(ListContainer);
+// Styles encapsulation
+const styledListContainer = withStyles(styles)(ListContainer);
+
+// Redux connectors
+function mapStateToProps(state) {
+  return {
+    events: state.calendarData.events
+  };
+}
+
+export default connect(
+  mapStateToProps,
+)(styledListContainer);
