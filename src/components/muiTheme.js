@@ -79,7 +79,6 @@ let muiTheme =  {
       display: 'flex',
       height: '220px',
       width: '950px',
-      justifyContent: 'space-between',
       flexWrap: 'wrap'
     },
     clockCard: {

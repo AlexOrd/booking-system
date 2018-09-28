@@ -9,7 +9,7 @@ import PropTypes from "prop-types";
 import React from "react";
 import { hot } from "react-hot-loader";
 import NewEvent from './NewEvent/NewEvent';
-import EventInfo from './EventInfo/EventInfo';
+import EventPage from './EventInfo/EventPage';
 import ChooseRoomPage from './ChooseRoom/ChooseRoom';
 
 // This is a class-based component because the current
@@ -73,7 +73,7 @@ class App extends React.Component {
             <Switch>
               <PrivateRoute exact path="/" component={HomePage} />
               <PrivateRoute path="/new" component={NewEvent} />
-              <PrivateRoute path="/info" component={EventInfo} />
+              <PrivateRoute path="/event/:id" component={EventPage} />
               <PrivateRoute path="/about" component={AboutPage} />
               <Route path="/settings" render={(props) => <ChooseRoomPage history={props.history}/>} />
               <Route component={NotFoundPage} />

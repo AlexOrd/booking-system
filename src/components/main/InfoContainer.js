@@ -24,10 +24,14 @@ const styles = {
     height: theme.spacing.mediaHeightLarge,
     backgroundColor: theme.palette.primary1Color
   },
+  actions: {
+    justifyContent: 'flex-end'
+  },
 };
 
 const InfoContainer = (props) => {
   const { classes, calendar } = props;
+
   return (
     <Card className={classes.card}>
       <CardActionArea>
@@ -45,7 +49,7 @@ const InfoContainer = (props) => {
           </Typography>
         </CardContent>
       </CardActionArea>
-      <CardActions>
+      <CardActions className={classes.actions}>
         <Link to="/new">
           <Button variant="contained" size="large" color="primary">
             RESERVE
