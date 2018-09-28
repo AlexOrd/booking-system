@@ -1,5 +1,5 @@
 export default {
   events: [],
   calendarList: [],
-  calendar: {},
+  calendar: JSON.parse(localStorage.getItem('ROOM')) || {},
 };

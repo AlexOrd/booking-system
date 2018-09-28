@@ -29,7 +29,7 @@ class HomePage extends React.Component {
   }
 
   componentDidMount() {
-    const calendarId = this.props.calendar.id || localStorage.getItem('ROOM_ID');
+    const calendarId = this.props.calendar.id;
     const timeMin = moment().startOf('day').format();
     const timeMax = moment().endOf('day').format();
     if (calendarId) {
@@ -38,7 +38,7 @@ class HomePage extends React.Component {
 	}
 
   render () {
-    const { events, calendar, classes } = this.props;
+    const {calendar, classes } = this.props;
     return (
       <Paper className={classes.root} elevation={1} >
         <InfoContainer calendar={calendar} />

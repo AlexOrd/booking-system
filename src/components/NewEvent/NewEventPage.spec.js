@@ -1,10 +1,10 @@
 import React from 'react';
 import { shallow } from 'enzyme';
-import NewEvent from './NewEvent';
+import NewEventPage from './NewEventPage';
 
-describe('<NewEvent />', () => {
+describe('<NewEventPage />', () => {
   it('should have a header called \'About\'', () => {
-    const wrapper = shallow(<NewEvent />);
+    const wrapper = shallow(<NewEventPage />);
     const actual = wrapper.find('h2').text();
     const expected = 'About';
 
