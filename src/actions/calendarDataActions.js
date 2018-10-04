@@ -1,5 +1,5 @@
 import * as types from '../constants/actionTypes';
-import eventsAPI from '../api/calendarEventsAPI';
+import calendarAPI from '../api/calendarAPI';
 
 export function setCalendarData(calendarData) {
   return {
@@ -26,7 +26,7 @@ export function loadCalendarListSuccess(list) {
 
 export function loadEvents(calendarId, timeMin, timeMax) {
   return function(dispatch) {
-    eventsAPI.getEvents(calendarId, timeMin, timeMax).then(response => {
+    calendarAPI.getEvents(calendarId, timeMin, timeMax).then(response => {
       const events = response.result.items;
       dispatch(loadEventsSuccess(events))
     }).catch(error => {
@@ -37,7 +37,7 @@ export function loadEvents(calendarId, timeMin, timeMax) {
 
 export function getCalendarList() {
   return function(dispatch) {
-    eventsAPI.calendarList().then(response => {
+    calendarAPI.calendarList().then(response => {
       // filter primary calendar
       const list = response.result.items.filter(calendar => calendar.id != calendar.summary);
       dispatch(loadCalendarListSuccess(list))

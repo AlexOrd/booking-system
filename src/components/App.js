@@ -8,7 +8,7 @@ import NotFoundPage from "./NotFoundPage";
 import PropTypes from "prop-types";
 import React from "react";
 import { hot } from "react-hot-loader";
-import NewEvent from './NewEvent/NewEvent';
+import NewEventPage from './NewEvent/NewEventPage';
 import EventPage from './EventInfo/EventPage';
 import ChooseRoomPage from './ChooseRoom/ChooseRoom';
 
@@ -18,7 +18,7 @@ import ChooseRoomPage from './ChooseRoom/ChooseRoom';
 
 const PrivateRoute = ({ component: Component, ...rest }) => (
   <Route {...rest} render={(props) => (
-    localStorage.getItem('ROOM_ID')
+    localStorage.getItem('ROOM')
       ? <Component {...props} />
       : <Redirect to='/settings' />
   )} />
@@ -72,7 +72,7 @@ class App extends React.Component {
         <div>
             <Switch>
               <PrivateRoute exact path="/" component={HomePage} />
-              <PrivateRoute path="/new" component={NewEvent} />
+              <PrivateRoute path="/new" component={NewEventPage} />
               <PrivateRoute path="/event/:id" component={EventPage} />
               <PrivateRoute path="/about" component={AboutPage} />
               <Route path="/settings" render={(props) => <ChooseRoomPage history={props.history}/>} />
