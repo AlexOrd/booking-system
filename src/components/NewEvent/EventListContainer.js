@@ -53,7 +53,7 @@ class EventListContainer extends React.Component {
 
     return (
       <Paper className={classes.root}>
-        <List>
+        {/* <List>
           {[0, 1, 2, 3, 4, 5, 6].map(value => (
             <ListItem key={value} dense button className={classes.listItem}>
               <Avatar className={classes.purpleAvatar}>OP</Avatar>
@@ -67,7 +67,7 @@ class EventListContainer extends React.Component {
               </ListItemSecondaryAction>
             </ListItem>
           ))}
-        </List>
+        </List> */}
       </Paper>
     );
   }

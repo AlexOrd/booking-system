@@ -73,11 +73,12 @@ class ChooseRoom extends React.Component {
 	}
 
   selectRoomCalendar = (roomData, index) => {
-    localStorage.setItem('ROOM_ID', roomData.id);
-    this.props.actions.setCalendarData({
+    const currentRoomData = {
       ...roomData,
       imageId: index
-    });
+    };
+    localStorage.setItem('ROOM', JSON.stringify(currentRoomData));
+    this.props.actions.setCalendarData(currentRoomData);
     this.props.history.push('/');
   };
 
