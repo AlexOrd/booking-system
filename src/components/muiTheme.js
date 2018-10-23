@@ -1,12 +1,14 @@
 let muiTheme =  {
   fontFamily: 'Roboto',
   fontSize: '64px',
+
   palette: {
     primary1Color: '#1958A8',
     accent1Color: "#0B314F",
     secondaryColor: '#EE3361',
     textColor: '#FFFFFF',
   },
+
   spacing: {
     horizontal: 45,
     vertical: 15,
@@ -20,6 +22,7 @@ let muiTheme =  {
     cardMinWidth: 300,
     listContainerMaxWidth: 360
   },
+
   text: {
     title: 18,
     subtitle: 12,
@@ -58,10 +61,17 @@ let muiTheme =  {
     justifyContent: 'space-between'
   },
 
+  buttons: {
+    margin: '5px',
+    fontSize: '30px',
+    height: '50px',
+  },
+
   container: {
     width: '100%',
     height: '330px'
   },
+
   components: {
     progressBar: {
       position: 'absolute',

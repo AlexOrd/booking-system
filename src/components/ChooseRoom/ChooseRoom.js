@@ -77,8 +77,10 @@ class ChooseRoom extends React.Component {
       ...roomData,
       imageId: index
     };
+    const currentRoomNews = this.props.calendarNewsList.find(newsCalendar => newsCalendar.summary.includes(currentRoomData.summary));
     localStorage.setItem('ROOM', JSON.stringify(currentRoomData));
     this.props.actions.setCalendarData(currentRoomData);
+    this.props.actions.setCalendarNews(currentRoomNews);
     this.props.history.push('/');
   };
 
@@ -136,6 +138,7 @@ class ChooseRoom extends React.Component {
 
 ChooseRoom.propTypes = {
   calendarList: PropTypes.array,
+  calendarNewsList: PropTypes.array,
   history: PropTypes.object,
   actions: PropTypes.object,
   classes: PropTypes.object,
@@ -145,7 +148,8 @@ const styledChooseRoom = withStyles(styles)(ChooseRoom);
 
 function mapStateToProps(state) {
   return {
-    calendarList: state.calendarData.calendarList
+    calendarList: state.calendarData.calendarList,
+    calendarNewsList: state.calendarData.calendarNewsList,
   };
 }
 
