@@ -48,6 +48,15 @@ function configureStoreDev(initialState) {
     composeEnhancers(applyMiddleware(...middlewares))
   );
 
+  // save state into LocalStorage
+  store.subscribe(() => {
+    const currentState = store.getState();
+    const calendarDataKeys = currentState.calendarData ? Object.keys(currentState.calendarData) : [];
+    calendarDataKeys.map((key) => {
+      localStorage.setItem(key, JSON.stringify(currentState.calendarData[key]));
+    })
+  })
+
   if (module.hot) {
     // Enable Webpack hot module replacement for reducers
     module.hot.accept('../reducers', () => {

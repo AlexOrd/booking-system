@@ -2,15 +2,19 @@
 
 import { googleApi } from '../../config.js';
 import { Route, Switch, Redirect } from "react-router-dom";
-import AboutPage from "./AboutPage";
-import HomePage from "./main/HomePage";
-import NotFoundPage from "./NotFoundPage";
 import PropTypes from "prop-types";
 import React from "react";
 import { hot } from "react-hot-loader";
+
+// Components
+import AboutPage from "./AboutPage";
+import HomePage from "./main/HomePage";
+import NotFoundPage from "./NotFoundPage";
 import NewEventPage from './NewEvent/NewEventPage';
 import EventPage from './EventInfo/EventPage';
 import ChooseRoomPage from './ChooseRoom/ChooseRoom';
+import LockScreenPage from './LockScreen/LockScreenPage';
+import SmartRoomPage from './SmartRoom/SmartRoomPage';
 
 // This is a class-based component because the current
 // version of hot reloading won't hot reload a stateless
@@ -71,7 +75,9 @@ class App extends React.Component {
       return (
         <div>
             <Switch>
-              <PrivateRoute exact path="/" component={HomePage} />
+              <PrivateRoute exact path="/" component={LockScreenPage} />
+              <PrivateRoute path="/home" component={HomePage} />
+              <PrivateRoute path="/room" component={SmartRoomPage} />
               <PrivateRoute path="/new" component={NewEventPage} />
               <PrivateRoute path="/event/:id" component={EventPage} />
               <PrivateRoute path="/about" component={AboutPage} />

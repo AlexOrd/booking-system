@@ -38,20 +38,6 @@ class NewEventPage extends React.Component {
       dailyEvents: [],
       isLoading: false
     };
-
-    var resource = {
-      'summary': 'Google I/O 2015',
-      'description': 'A chance to hear more about Google\'s developer products.',
-      'start': {
-        'dateTime': '2015-05-28T09:00:00-07:00',
-        'timeZone': 'America/Los_Angeles'
-      },
-      'end': {
-        'dateTime': '2015-05-28T17:00:00-07:00',
-        'timeZone': 'America/Los_Angeles'
-      },
-      'attendees': []
-    };
   }
 
   componentDidMount() {
@@ -103,7 +89,8 @@ class NewEventPage extends React.Component {
       attendees: []
     };
 
-    calendarAPI.createEvent(this.props.calendar.id, resource).then(response => {
+    calendarAPI.createEvent(this.props.calendar.id, resource).then(() => {
+      this.props.history.push('/home');
     }).catch(error => {
       throw(error);
     });
@@ -136,7 +123,8 @@ class NewEventPage extends React.Component {
 
 NewEventPage.propTypes = {
   classes: PropTypes.object.isRequired,
-  calendar: PropTypes.object.isRequired
+  calendar: PropTypes.object.isRequired,
+  history: PropTypes.object.isRequired
 };
 
 // Styles encapsulation

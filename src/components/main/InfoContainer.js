@@ -25,7 +25,8 @@ const styles = {
     backgroundColor: theme.palette.primary1Color
   },
   actions: {
-    justifyContent: 'flex-end'
+    justifyContent: 'space-between',
+    paddingTop: theme.spacing.vertical
   },
 };
 
@@ -50,11 +51,12 @@ const InfoContainer = (props) => {
         </CardContent>
       </CardActionArea>
       <CardActions className={classes.actions}>
-        <Link to="/new">
-          <Button variant="contained" size="large" color="primary">
-            RESERVE
-          </Button>
-        </Link>
+        <Button component={Link} to="/" variant="contained" size="large" color="secondary">
+            BACK
+        </Button>
+        <Button component={Link} to="/new" variant="contained" size="large" color="primary">
+          RESERVE
+        </Button>
       </CardActions>
     </Card>
   );

@@ -162,11 +162,9 @@ const EventContainer = (props) => {
             />
           </CardContent>
         <CardActions className={classes.actions}>
-          <Link to="/">
-            <Button variant="contained" size="large" color="secondary">
-              BACK
-            </Button>
-          </Link>
+          <Button component={Link} to="/home" variant="contained" size="large" color="secondary">
+            BACK
+          </Button>
           <Button variant="contained" size="large" color="primary" onClick={onReserve}>
             RESERVE
           </Button>
