@@ -67,7 +67,9 @@ class LockScreenPage extends React.Component {
     const { classes, news } = this.props;
     const newsImgs = [];
     news.forEach((daily) => {
-      newsImgs.push(...daily.description.trim().split(/\r?\n/));
+      if (daily.description) {
+        newsImgs.push(...daily.description.trim().split(/\r?\n/));
+      }
     })
     const settings = {
       dots: true,

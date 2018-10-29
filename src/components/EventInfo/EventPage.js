@@ -105,7 +105,7 @@ class EventPage extends React.Component {
           </CardContent>
           <CardActions>
             <Link to="/">
-              <Button variant="contained" size="large" color="primary">
+              <Button className={classes.buttons} variant="contained" size="large" color="primary">
                 BACK
               </Button>
             </Link>

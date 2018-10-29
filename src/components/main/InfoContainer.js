@@ -28,6 +28,7 @@ const styles = {
     justifyContent: 'space-between',
     paddingTop: theme.spacing.vertical
   },
+  buttons: theme.buttons,
 };
 
 const InfoContainer = (props) => {
@@ -51,10 +52,10 @@ const InfoContainer = (props) => {
         </CardContent>
       </CardActionArea>
       <CardActions className={classes.actions}>
-        <Button component={Link} to="/" variant="contained" size="large" color="secondary">
+        <Button className={classes.buttons} component={Link} to="/" variant="contained" size="large" color="secondary">
             BACK
         </Button>
-        <Button component={Link} to="/new" variant="contained" size="large" color="primary">
+        <Button className={classes.buttons} component={Link} to="/new" variant="contained" size="large" color="primary">
           RESERVE
         </Button>
       </CardActions>
