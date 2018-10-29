@@ -47,9 +47,11 @@ const styles ={
     justifyContent: 'space-between'
   },
   form: {
+    height: '270px',
     display: 'flex',
     alignItems: 'center',
-    flexFlow: 'column'
+    flexFlow: 'column',
+    justifyContent: 'center',
   },
   ...theme.text.form,
   calendar: theme.components.calendar,
@@ -60,7 +62,8 @@ const styles ={
     height: '100px'
   },
   dateField: {
-    marginBottom: '5px',
+    width: '230px',
+    marginBottom: '25px',
     display: 'flex',
     flexDirection: 'column'
   },
@@ -69,6 +72,15 @@ const styles ={
     justifyContent: 'space-between',
     paddingTop: theme.spacing.vertical
   },
+  selectContainer: {
+    display: 'flex',
+    justifyContent: 'space-between',
+    width: '500px',
+  },
+  formControl: {
+    width: '230px',
+  },
+  buttons: theme.buttons,
 };
 
 const EVENT_TITLES = [
@@ -105,24 +117,21 @@ const EventContainer = (props) => {
             <Typography gutterBottom variant="headline" component="h1">
               Meeting Room &quot;{calendar.summary}&quot;
             </Typography>
-            <div>
-
-            </div>
             <form className={classes.form} noValidate autoComplete="off">
-              <FormControl className={classes.formControl}>
-                <InputLabel htmlFor="title-selector">Select event title</InputLabel>
-                <Select
-                  value={meetingTitle}
-                  onChange={onTitleChange}
-                  inputProps={{
-                    name: 'Select event title',
-                    id: 'title-selector',
-                  }}
-                >
-                  { EVENT_TITLES.map((title, index) => <MenuItem key={index} value={title}>{title}</MenuItem>) }
-                </Select>
-              </FormControl>
-              <div>
+              <div className={classes.selectContainer} >
+                <FormControl className={classes.formControl}>
+                  <InputLabel htmlFor="title-selector">Select event title</InputLabel>
+                  <Select
+                    value={meetingTitle}
+                    onChange={onTitleChange}
+                    inputProps={{
+                      name: 'Select event title',
+                      id: 'title-selector',
+                    }}
+                  >
+                    { EVENT_TITLES.map((title, index) => <MenuItem key={index} value={title}>{title}</MenuItem>) }
+                  </Select>
+                </FormControl>
                 <div className={classes.dateField}>
                   <InputLabel htmlFor="date" className={cx(classes.dateLabel, classes.color)} >Date</InputLabel>
                   <DatePicker
@@ -134,7 +143,7 @@ const EventContainer = (props) => {
                   />
                 </div>
               </div>
-              <FormGroup row className={classes.formGroup}>
+              <FormGroup row className={classes.selectContainer}>
                 <FormControl className={classes.formControl}>
                   <InputLabel htmlFor="from-time" className={cx(classes.formLabel, classes.color)} >From</InputLabel>
                   <TimeInput
@@ -162,10 +171,10 @@ const EventContainer = (props) => {
             />
           </CardContent>
         <CardActions className={classes.actions}>
-          <Button component={Link} to="/home" variant="contained" size="large" color="secondary">
+          <Button className={classes.buttons} component={Link} to="/home" variant="contained" size="large" color="secondary">
             BACK
           </Button>
-          <Button variant="contained" size="large" color="primary" onClick={onReserve}>
+          <Button className={classes.buttons} variant="contained" size="large" color="primary" onClick={onReserve}>
             RESERVE
           </Button>
         </CardActions>
