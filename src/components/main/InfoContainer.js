@@ -46,14 +46,14 @@ const InfoContainer = (props) => {
           <Typography gutterBottom variant="headline" component="h2">
             Meeting Room &quot;{calendar.summary}&quot;
           </Typography>
-          <Typography component="p">
+          <Typography>
             {calendar.description}
           </Typography>
         </CardContent>
       </CardActionArea>
       <CardActions className={classes.actions}>
-        <Button className={classes.buttons} component={Link} to="/" variant="contained" size="large" color="secondary">
-            BACK
+        <Button className={classes.buttons} component={Link} to="/room" variant="contained" size="large" color="primary">
+          SMART ROOM
         </Button>
         <Button className={classes.buttons} component={Link} to="/new" variant="contained" size="large" color="primary">
           RESERVE

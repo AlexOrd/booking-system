@@ -3,39 +3,28 @@ import PropTypes from "prop-types";
 import Slider from "react-slick";
 import { Link } from 'react-router-dom';
 import { connect } from 'react-redux';
-import {bindActionCreators} from 'redux';
+import { bindActionCreators } from 'redux';
 import * as moment from 'moment';
 import * as actions from '../../actions/calendarDataActions';
 
 // Material
 import Paper from '@material-ui/core/Paper';
-import CardActions from '@material-ui/core/CardActions';
-import Button from '@material-ui/core/Button';
 import { withStyles } from '@material-ui/core/styles';
-import theme from './../muiTheme';
 
 const styles = {
-    root: {
-      paddingLeft: '5px',
-      paddingRight: '5px',
-      paddingBottom: '5px',
-      paddingTop: '5px',
-      width: 1014,
-      height: 590,
-      display: 'flex',
-      justifyContent: 'space-between',
-      flexFlow: 'column',
+    slide: {
+      margin: "20px 10px",
+      position: "relative",
+      height: "500px",
     },
-    sliderContainer: {
-      width: '100%',
-      height: '80%',
-    },
-    actions: {
-      marginTop: '35px',
-      display: 'flex',
-      justifyContent: 'space-between',
-    },
-    buttons: theme.buttons,
+    img: {
+      position: "absolute",
+      margin: "auto",
+      top: "0",
+      left: "0",
+      right: "0",
+      bottom: "0"
+    }
 };
 
 class LockScreenPage extends React.Component {
@@ -63,7 +52,6 @@ class LockScreenPage extends React.Component {
   }
 
   render () {
-
     const { classes, news } = this.props;
     const newsImgs = [];
     news.forEach((daily) => {
@@ -77,29 +65,24 @@ class LockScreenPage extends React.Component {
       speed: 1000,
       autoplaySpeed: 4000,
       autoplay: true,
+      adaptiveHeight: true,
+      fade: true,
+      // touchMove: true,
       slidesToShow: 1,
       slidesToScroll: 1,
     };
 
     return (
-      <Paper className={classes.root} elevation={1}>
-        <Slider className={classes.sliderContainer} {...settings}>
+      <Paper component={Link} to="/home" elevation={1}>
+        <Slider {...settings}>
           {newsImgs.map((imgSrc, index) => {
             return (
-              <div key={index} >
-                <img src={imgSrc} />
+              <div className={classes.slide} key={index}>
+                <img className={classes.img} src={imgSrc} />
               </div>
             );
           })}
         </Slider>
-        <CardActions className={classes.actions}>
-          <Button className={classes.buttons} component={Link} to="/room" variant="contained" size="large" color="primary">
-            SMART ROOM SYSTEM
-          </Button>
-          <Button className={classes.buttons} component={Link} to="/home" variant="contained" size="large" color="primary" >
-            RESERVE MEETING ROOM
-          </Button>
-        </CardActions>
       </Paper>
     );
   }
