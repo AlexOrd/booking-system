@@ -2,6 +2,7 @@ import React from 'react';
 import PropTypes from "prop-types";
 import { GenericWeather } from 'react-weather';
 import { Link } from 'react-router-dom';
+import Switcher from './Widgets/Switcher';
 
 // Material
 import Paper from '@material-ui/core/Paper';
@@ -42,8 +43,9 @@ class SmartRoomPage extends React.Component {
 
     return (
       <Paper  className={classes.root} elevation={1}>
-        <div style={{width: '600px', margin: '120px 150px'}}>
-          <a className="weatherwidget-io" href="https://forecast7.com/uk/49d2328d47/vinnytsia/" data-label_1="VINNYTSIA" data-label_2="WEATHER" data-font="Roboto" data-icons="Climacons" data-theme="original" >VINNYTSIA WEATHER</a>
+        <div style={{width: theme.root.width/2, margin: '120px 150px'}}>
+          <Switcher title={'Main light'}/>
+          <Switcher title={'Side light'}/>
         </div>
         <CardActions className={classes.actions}>
           <Button component={Link} to="/" variant="contained" size="large" color="secondary">
