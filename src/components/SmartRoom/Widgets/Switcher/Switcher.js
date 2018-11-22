@@ -5,7 +5,7 @@ import Toggle from 'react-toggle';
 import {Card, CardContent, Typography} from '@material-ui/core';
 import './Switcher.css';
 import {withStyles} from "@material-ui/core/styles/index";
-import theme from './../../muiTheme';
+import theme from '../../../muiTheme';
 
 const styles = {
   switcher: {
@@ -14,7 +14,8 @@ const styles = {
     alignItems: 'center'
   },
   card: {
-    marginTop: theme.spacing.vertical
+    marginTop: theme.spacing.vertical,
+    marginLeft: theme.spacing.vertical,
   }
 };
 
@@ -41,11 +42,10 @@ class Switcher extends PureComponent{
 
   render() {
     const {classes } = this.props;
-    console.log(this.props);
     return (
       <Card className={classes.card}>
         <CardContent className={classes.switcher}>
-          <Typography component="h5" variant="title">
+          <Typography component="h5" variant="display1">
             {this.props.title}
           </Typography>
           <Toggle className={this.state.isToggled ? 'Switcher-right-align': 'Switcher-left-align'}
