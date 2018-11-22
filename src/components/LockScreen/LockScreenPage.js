@@ -11,6 +11,8 @@ import * as actions from '../../actions/calendarDataActions';
 import Paper from '@material-ui/core/Paper';
 import { withStyles } from '@material-ui/core/styles';
 
+const defaultSlide = 'images/logo.png';
+
 const styles = {
     slide: {
       margin: "20px 10px",
@@ -53,7 +55,7 @@ class LockScreenPage extends React.Component {
 
   render () {
     const { classes, news } = this.props;
-    const newsImgs = [];
+    const newsImgs = [ defaultSlide ];
     news.forEach((daily) => {
       if (daily.description) {
         newsImgs.push(...daily.description.trim().split(/\r?\n/));
