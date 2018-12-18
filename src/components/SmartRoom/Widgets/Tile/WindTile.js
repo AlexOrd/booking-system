@@ -7,8 +7,7 @@ import theme from '../../../muiTheme';
 
 const styles = {
   weatherTile: {
-    flex: '1 0 auto',
-    minWidth: 260
+    flex: '1 0 auto'
   },
   card: {
     display: 'flex',
@@ -24,12 +23,12 @@ const styles = {
     flexDirection: 'column'
   },
   image: {
-    width: 155,
+    width: 75,
     backgroundSize: '80%'
   }
 };
 
-class Weather extends PureComponent{
+class Wind extends PureComponent{
   constructor(props) {
     super(props);
   }
@@ -40,17 +39,14 @@ class Weather extends PureComponent{
       <Card className={classes.card}>
         <div className={classes.info}>
           <CardContent className={classes.weatherTile}>
-              <Typography component="h2" variant="display3">
-                {`${this.props.number}°C`}
-              </Typography>
-              <Typography component="h5" variant="display1">
-                {this.props.description}
-              </Typography>
+            <Typography component="h3" variant="display2">
+              {`${this.props.wind.speed} m/s`}
+            </Typography>
           </CardContent>
         </div>
         <CardMedia
           className={classes.image}
-          image={`images/weather/png/${this.props.image}.png`}
+          image={`images/weather/wind.png`}
           title="Live from space album cover"
         />
       </Card>
@@ -59,12 +55,9 @@ class Weather extends PureComponent{
   }
 }
 
-Weather.propTypes = {
+Wind.propTypes = {
   classes: PropTypes.object.isRequired,
-  title: PropTypes.string.isRequired,
-  number: PropTypes.string.isRequired,
-  description: PropTypes.string.isRequired,
-  image: PropTypes.string.isRequired
+  wind: PropTypes.object.isRequired
 };
 
-export default withStyles(styles)(Weather);
+export default withStyles(styles)(Wind);
